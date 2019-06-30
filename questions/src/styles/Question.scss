@@ -1,0 +1,41 @@
+@import '../palette.scss';
+
+.button {
+  background-color: $color3;
+  margin-top: 30px;
+}
+
+.button:hover {
+  background-color: $color5;
+}
+
+ul {
+  padding: 0;
+}
+
+
+.card {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: $color3;
+  background-color: $color1;
+  
+  .card-text {
+    margin-bottom: 60px;
+  }
+}
+
+.title {
+  color: $color3;
+  font-size: 30px;
+}
+
+.horse {
+  color: $color3;
+  font-weight: bold;
+  font-size: 40px;
+}
