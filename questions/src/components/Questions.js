@@ -13,6 +13,10 @@ class Question extends React.Component {
       index: 0,
       userAnswer: '',
       wrongAnswers: 0,
+      toggleAnswer: 'hide',
+      toggleQuestion: '',
+      successMessage: '',
+      successMessageClass: '',
     }
   }
 
@@ -32,19 +36,35 @@ class Question extends React.Component {
     const diff = Math.abs(this.state.userAnswer - answer);
     const diffOverAnswer = diff / answer;
     if (diffOverAnswer <= 0.25) {
-
+      this.setState({
+        successMessage: 'Correct!',
+        successMessageClass: 'correct'
+      })
     }
     else {
       this.setState({
-        wrongAnswers: this.state.wrongAnswers + 1
+        wrongAnswers: this.state.wrongAnswers + 1,
+        successMessage: 'Wrong...',
+        successMessageClass: 'incorrect'
       })
     };
 
     this.setState({
-      index: this.state.index + 1,
       userAnswer: '',
+      toggleAnswer: '',
+      toggleQuestion: 'hide',
     })
   }
+
+  nextQuestion = e => {
+    this.setState({
+      index: this.state.index + 1,
+      toggleAnswer: 'hide',
+      toggleQuestion: '',
+    })
+  }
+
+
 
   render() {
     let horse = '';
@@ -75,28 +95,45 @@ class Question extends React.Component {
     return (
       <ul>
         {this.props.questions.filter(e => { return e.id === this.state.index }).map(e =>
-          <Card className='card-container' body inverse key={e.id}>
-            <CardTitle className='title'>{e.title}</CardTitle>
-            <div className='card'>
-              <CardText className='card-text'>{e.content}</CardText>
-              <input
-                placeholder='Input your answer'
-                type='number'
-                name='userAnswer'
-                value={this.state.userAnswer}
-                onChange={this.handleChange}
-              >
-              </input>
-              <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'column' }}>
-                <Button className='button' onClick={event => { this.submitAnswer(event, e.answer) }}>Guesstimate</Button>
+          <Card body inverse key={e.id}>
+            <div className='card-container'>
+              <CardTitle className={`title ${this.state.toggleQuestion}`}>{e.title}</CardTitle>
+              <CardTitle className={`title-success-message ${this.state.toggleAnswer} ${this.state.successMessageClass}`}>{this.state.successMessage}</CardTitle>
+
+              <div className='card'>
+
+                <div className={`card-question ${this.state.toggleQuestion}`}>
+                  <CardText className='card-text'>{e.content}</CardText>
+                  <input
+                    placeholder='Input your answer'
+                    type='number'
+                    name='userAnswer'
+                    value={this.state.userAnswer}
+                    onChange={this.handleChange}
+                  >
+                  </input>
+                </div>
+
+                <div className={`card-answer ${this.state.toggleAnswer}`}>
+                  <CardText className='card-text'>{e.content}</CardText>
+                  <h2>{e.answer}</h2>
+                </div>
+
+                <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'column' }}>
+                  <Button className={`button ${this.state.toggleQuestion}`} onClick={event => { this.submitAnswer(event, e.answer) }}>Guesstimate</Button>
+                  <Button className={`button-next ${this.state.toggleAnswer}`} onClick={event => { this.nextQuestion(event) }}>Next Question</Button>
+                </div>
               </div>
-            </div>
-            <div className="horse">
-              {horse}
+
+              <div className="horse">
+                {horse}
+              </div>
+
             </div>
           </Card>
         )}
       </ul>
+
 
     )
   }

@@ -21,8 +21,56 @@ let questions = [
   {
     id: 1,
     title: 'Second Question',
-    content: 'At its height in 1913, what percentage of the world population did the British Empire estimatedly rule over?',
+    content: 'At its height in 1913, what percentage of the world population did the British Empire rule over?',
     answer: 23,
+  },
+  {
+    id: 2,
+    title: 'Third Question',
+    content: 'How much does an iPhone 7 weigh (in grams)?',
+    answer: 138,
+  },
+  {
+    id: 3,
+    title: 'Fourth Question',
+    content: 'How many swipes are made on Tinder every day?',
+    answer: 1600000000,
+  },
+  {
+    id: 4,
+    title: 'Fifth Question',
+    content: 'How long is the river Nile (in km)?',
+    answer: 6695,
+  },
+  {
+    id: 5,
+    title: 'Sixth Question',
+    content: 'How much electricity is in an average bolt of lightning (in volts)?',
+    answer: 1000000000,
+  },
+  {
+    id: 6,
+    title: 'Seventh Question',
+    content: 'How much does SpaceX charge to launch a Falcon 9 Rocket (in USD)?',
+    answer: 62000000,
+  },
+  {
+    id: 7,
+    title: 'Eighth Question',
+    content: 'How many YouTube videos are watched per day?',
+    answer: 5000000000,
+  },
+  {
+    id: 8,
+    title: 'Ninth Question',
+    content: 'How far is Los Angeles to New Delhi as the crow flies (in km)?',
+    answer: 12852.22,
+  },
+  {
+    id: 9,
+    title: 'Tenth Question',
+    content: 'How many touchdown passes did Peyton Manning throw in his career?',
+    answer: 539,
   },
 ];
 

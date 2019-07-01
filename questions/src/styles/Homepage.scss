@@ -1,0 +1,11 @@
+@import '../palette.scss';
+
+.h2-link {
+  color: $color3;
+  text-decoration: none;
+}
+
+.h2-link:hover {
+  color: white;
+  text-decoration: none;
+}

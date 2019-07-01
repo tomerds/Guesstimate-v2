@@ -1,19 +1,24 @@
 import './App.scss';
 
 import React from 'react';
+import { Route } from 'react-router-dom';
 
+import HomePage from './components/HomePage';
+import Multiplayer from './components/Multiplayer';
+import Navbar from './components/Navbar';
 import Question from './components/Questions';
 
 function App() {
   return (
     <div className="App">
-      <div className='nav-bar'>
-        <h1>Guesstimate</h1>
-        <h1 className='logo'>?</h1>
-      </div>
+      <Navbar />
       <div className='mobile-app-container'>
-        <Question />
+        {/* <Question /> */}
+        <Route exact path='/' render={props => (<HomePage {...props} />)} />
+        <Route path='/single-player' render={props => (<Question {...props} />)} />
+        <Route path='/multi-player' render={props => (<Multiplayer {...props} />)} />
       </div>
+
     </div>
   );
 }

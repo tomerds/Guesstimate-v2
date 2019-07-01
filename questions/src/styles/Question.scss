@@ -13,9 +13,38 @@ ul {
   padding: 0;
 }
 
+.card-container {
+  height: 500px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.hide {
+  display: none;
+}
+
+.title-success-message {
+  font-size: 50px;  
+  font-weight: bold;
+}
+
+.correct {
+  color: $color2;
+}
+
+.incorrect {
+  color: $color3;
+}
+
+.card-question, .card-answer {
+  height: 200px;
+}
 
 .card {
-  height: 500px;
+  // min-height: 450px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +52,7 @@ ul {
   border: none;
   color: $color3;
   background-color: $color1;
-  
+
   .card-text {
     margin-bottom: 60px;
   }
