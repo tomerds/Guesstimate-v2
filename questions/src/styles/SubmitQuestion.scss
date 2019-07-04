@@ -1,0 +1,11 @@
+@import '../palette.scss';
+
+.add-container h1 {
+  color: $color3;
+}
+
+.add-card-text textarea {
+  width: 90%;
+  height: 100px;
+  border: none;
+}

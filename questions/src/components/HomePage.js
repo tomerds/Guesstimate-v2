@@ -13,6 +13,9 @@ class HomePage extends React.Component {
         <Link to='/multi-player' style={{ textDecoration: 'none' }}>
           <h2 className='h2-link'>Multiplayer </h2>
         </Link>
+        <Link to='/add-question' style={{ textDecoration: 'none' }}>
+          <h2 className='h2-link'>Add Questions</h2>
+        </Link>
       </div>
     )
   }
