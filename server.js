@@ -1,4 +1,3 @@
-require("dotenv").config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -257,15 +256,4 @@ app.get('/questions', (req, res) => {
 });
 
 
-const port = process.env.PORT || 5000;
-
-app.listen(port, () => {
-  console.log(`\n*** Server Running on http://localhost:${port} ***\n`);
-});
-
-
-//multiplayer server 
-
-io.on('connection', (client) => {
-  // here you can start emitting events to the client 
-});
+module.exports = app;
