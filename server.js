@@ -257,8 +257,10 @@ app.get('/questions', (req, res) => {
 });
 
 
-app.listen(5000, () => {
-  console.log('server listening on port 5000');
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => {
+  console.log(`\n*** Server Running on http://localhost:${port} ***\n`);
 });
 
 

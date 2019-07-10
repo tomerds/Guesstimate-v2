@@ -8,12 +8,13 @@
     "cors": "^2.8.4",
     "express": "^4.17.1",
     "node-sass": "^4.12.0",
-    "nodemon": "^1.14.11",
+    "nodemon": "^1.19.1",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "author": "Tomer du Sautoy",
   "license": "ISC"
