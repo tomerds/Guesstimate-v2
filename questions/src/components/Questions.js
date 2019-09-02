@@ -1,5 +1,6 @@
 import './../styles/Question.scss';
 
+import axios from 'axios';
 import React from 'react';
 import Countdown from 'react-countdown-now';
 import { connect } from 'react-redux';
@@ -41,19 +42,31 @@ class Question extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getQuestion()
+    // this.props.getQuestion();
 
-    let questionHolder = this.props.questions;
+    // let questionHolder = this.props.questions;
 
-    this.shuffleQuestions(questionHolder);
+    // this.shuffleQuestions(questionHolder);
 
-    this.setState({
-      questions: questionHolder.map((e, index) => { return { ...e, id: index } })
-    })
+    // this.setState({
+    //   questions: questionHolder.map((e, index) => { return { ...e, id: index } })
+    // })
 
-    this.forceUpdate()
 
-  }
+
+    axios.get('https://boiling-chamber-48923.herokuapp.com/questions')
+      .then(res => {
+        let questionHolder = res.data;
+        this.shuffleQuestions(questionHolder);
+        this.setState({
+          questions: questionHolder.map((e, index) => { return { ...e, id: index } })
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
+  };
 
   submitAnswer = (event, answer) => {
     const diff = Math.abs(this.state.userAnswer - answer);
@@ -117,58 +130,61 @@ class Question extends React.Component {
         horse = 'GAME OVER';
     };
 
-
     return (
-      <ul>
-        {this.state.questions.filter(e => { return e.id === this.state.index }).map(e =>
-          <Card body inverse key={e.id}>
+      <div>
+        {this.state.questions &&
+          <ul>
+            {this.state.questions.filter(e => { return e.id === this.state.index }).map(e =>
+              <Card body inverse key={e.id}>
 
-            <div className='card-container'>
-              <div className={`${this.state.toggleClock}`}>
-                <Countdown
-                  date={Date.now() + 10000}
-                  zeroPadTime={2}
-                  onComplete={this.state.toggleClock === '' ? event => { this.submitAnswer(event, e.answer) } : e => { }}
-                  renderer={props => <div className={`timer`}>{props.seconds}</div>}
-                />
-              </div>
-              <CardTitle className={`title ${this.state.toggleQuestion}`}>{e.title}</CardTitle>
-              <CardTitle className={`title-success-message ${this.state.toggleAnswer} ${this.state.successMessageClass}`}>{this.state.successMessage}</CardTitle>
+                <div className='card-container'>
+                  <div className={`${this.state.toggleClock}`}>
+                    <Countdown
+                      date={Date.now() + 10000}
+                      zeroPadTime={2}
+                      onComplete={this.state.toggleClock === '' ? event => { this.submitAnswer(event, e.answer) } : e => { }}
+                      renderer={props => <div className={`timer`}>{props.seconds}</div>}
+                    />
+                  </div>
+                  <CardTitle className={`title ${this.state.toggleQuestion}`}>{e.title}</CardTitle>
+                  <CardTitle className={`title-success-message ${this.state.toggleAnswer} ${this.state.successMessageClass}`}>{this.state.successMessage}</CardTitle>
 
-              <div className='card'>
-                <div className={`card-question ${this.state.toggleQuestion}`}>
-                  <CardText className='card-text'>{e.content}</CardText>
-                  <input
-                    placeholder='Input your answer'
-                    type='number'
-                    name='userAnswer'
-                    value={this.state.userAnswer}
-                    onChange={this.handleChange}
-                  >
-                  </input>
+                  <div className='card'>
+                    <div className={`card-question ${this.state.toggleQuestion}`}>
+                      <CardText className='card-text'>{e.content}</CardText>
+                      <input
+                        placeholder='Input your answer'
+                        type='number'
+                        name='userAnswer'
+                        value={this.state.userAnswer}
+                        onChange={this.handleChange}
+                      >
+                      </input>
+                    </div>
+
+                    <div className={`card-answer ${this.state.toggleAnswer}`}>
+                      <CardText className='card-text'>{e.content}</CardText>
+                      <h2>{e.answer}</h2>
+                    </div>
+
+                    <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'column' }}>
+                      <Button className={`button ${this.state.toggleQuestion}`} onClick={event => { this.submitAnswer(event, e.answer) }}>Guesstimate</Button>
+                      {this.state.wrongAnswers === 5 ? <Link to='/'><Button className={`button`} >GAME OVER</Button></Link> :
+                        <Button className={`button-next ${this.state.toggleAnswer}`} onClick={event => { this.nextQuestion(event) }}>Next Question</Button>
+                      }
+                    </div>
+                  </div>
+
+                  <div className="horse">
+                    {horse}
+                  </div>
+
                 </div>
-
-                <div className={`card-answer ${this.state.toggleAnswer}`}>
-                  <CardText className='card-text'>{e.content}</CardText>
-                  <h2>{e.answer}</h2>
-                </div>
-
-                <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'column' }}>
-                  <Button className={`button ${this.state.toggleQuestion}`} onClick={event => { this.submitAnswer(event, e.answer) }}>Guesstimate</Button>
-                  {this.state.wrongAnswers === 5 ? <Link to='/'><Button className={`button`} >GAME OVER</Button></Link> :
-                    <Button className={`button-next ${this.state.toggleAnswer}`} onClick={event => { this.nextQuestion(event) }}>Next Question</Button>
-                  }
-                </div>
-              </div>
-
-              <div className="horse">
-                {horse}
-              </div>
-
-            </div>
-          </Card>
-        )}
-      </ul>
+              </Card>
+            )}
+          </ul>
+        }
+      </div>
 
 
     )
