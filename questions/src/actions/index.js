@@ -10,7 +10,7 @@ export const SUBMIT_QUESTION_FAIL = 'SUBMIT_QUESTION_FAIL';
 export const SUBMIT_QUESTION_SUCCESS = 'SUBMIT_QUESTION_SUCCESS';
 
 export const getQuestion = () => dispatch => {
-  dispatch({ type: FETCH_QUESTION_START });
+  // dispatch({ type: FETCH_QUESTION_START });
   axios.get('https://boiling-chamber-48923.herokuapp.com/questions')
     .then(res => {
       dispatch({
