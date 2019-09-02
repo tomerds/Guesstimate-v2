@@ -51,6 +51,8 @@ class Question extends React.Component {
       questions: questionHolder.map((e, index) => { return { ...e, id: index } })
     })
 
+    this.forceUpdate()
+
   }
 
   submitAnswer = (event, answer) => {
