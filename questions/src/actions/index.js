@@ -11,7 +11,7 @@ export const SUBMIT_QUESTION_SUCCESS = 'SUBMIT_QUESTION_SUCCESS';
 
 export const getQuestion = () => dispatch => {
   dispatch({ type: FETCH_QUESTION_START });
-  axios.get('http://localhost:5000/questions')
+  axios.get('https://boiling-chamber-48923.herokuapp.com/questions')
     .then(res => {
       dispatch({
         type: FETCH_QUESTION_SUCCESS,
@@ -28,7 +28,7 @@ export const getQuestion = () => dispatch => {
 
 export const submitQuestion = (question) => dispatch => {
   dispatch({ type: SUBMIT_QUESTION_START });
-  axios.post('http://localhost:5000/questions', question)
+  axios.post('https://boiling-chamber-48923.herokuapp.com/questions', question)
     .then(res => {
       dispatch({
         type: SUBMIT_QUESTION_SUCCESS,
