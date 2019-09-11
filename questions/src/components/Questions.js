@@ -5,6 +5,7 @@ import React from 'react';
 import Countdown from 'react-countdown-now';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ClipLoader from 'react-spinners/ClipLoader';
 import { Button, Card, CardText, CardTitle } from 'reactstrap';
 
 import { getQuestion } from './../actions';
@@ -22,6 +23,7 @@ class Question extends React.Component {
       successMessageClass: '',
       questions: [],
       toggleClock: '',
+      loading: false,
     }
   }
 
@@ -52,19 +54,22 @@ class Question extends React.Component {
     //   questions: questionHolder.map((e, index) => { return { ...e, id: index } })
     // })
 
-
-
-    axios.get('https://boiling-chamber-48923.herokuapp.com/questions')
-      .then(res => {
-        let questionHolder = res.data;
-        this.shuffleQuestions(questionHolder);
-        this.setState({
-          questions: questionHolder.map((e, index) => { return { ...e, id: index } })
+    this.setState({
+      loading: true,
+    }, () => {
+      axios.get('https://boiling-chamber-48923.herokuapp.com/questions')
+        .then(res => {
+          let questionHolder = res.data;
+          this.shuffleQuestions(questionHolder);
+          this.setState({
+            questions: questionHolder.map((e, index) => { return { ...e, id: index } }),
+            loading: false,
+          })
         })
-      })
-      .catch(err => {
-        console.log(err);
-      })
+        .catch(err => {
+          console.log(err);
+        })
+    })
 
   };
 
@@ -132,7 +137,12 @@ class Question extends React.Component {
 
     return (
       <div>
-        {this.state.questions &&
+        {this.state.loading ? <Card> <ClipLoader
+          sizeUnit={"px"}
+          size={150}
+          color={'#123abc'}
+          loading={this.state.loading}
+        /></Card> :
           <ul>
             {this.state.questions.filter(e => { return e.id === this.state.index }).map(e =>
               <Card body inverse key={e.id}>
@@ -185,8 +195,6 @@ class Question extends React.Component {
           </ul>
         }
       </div>
-
-
     )
   }
 }
