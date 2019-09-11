@@ -168,7 +168,7 @@ class Question extends React.Component {
                     </div>
 
                     <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'column' }}>
-                      <Button className={`button ${this.state.toggleQuestion}`} onClick={event => { this.submitAnswer(event, e.answer) }}>Guesstimate</Button>
+                      <Button className={`button ${this.state.toggleQuestion}`} onClick={event => { this.submitAnswer(event, e.answer) }}>Guestimate</Button>
                       {this.state.wrongAnswers === 5 ? <Link to='/'><Button className={`button`} >GAME OVER</Button></Link> :
                         <Button className={`button-next ${this.state.toggleAnswer}`} onClick={event => { this.nextQuestion(event) }}>Next Question</Button>
                       }
