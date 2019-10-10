@@ -25,10 +25,11 @@ class Question extends React.Component {
       questions: [],
       toggleClock: '',
       loading: false,
+      date: 0,
     }
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     event.preventDefault();
     this.setState({
       [event.target.name]: event.target.value,
@@ -65,6 +66,7 @@ class Question extends React.Component {
           this.setState({
             questions: questionHolder.map((e, index) => { return { ...e, id: index } }),
             loading: false,
+            date: Date.now() + 10000
           })
         })
         .catch(err => {
@@ -105,6 +107,7 @@ class Question extends React.Component {
       toggleAnswer: 'hide',
       toggleQuestion: '',
       toggleClock: '',
+      date: Date.now() + 10000,
     })
   }
 
@@ -151,7 +154,7 @@ class Question extends React.Component {
                 <div className='card-container'>
                   <div className={`${this.state.toggleClock}`}>
                     <Countdown
-                      date={Date.now() + 10000}
+                      date={this.state.date}
                       zeroPadTime={2}
                       onComplete={this.state.toggleClock === '' ? event => { this.submitAnswer(event, e.answer) } : e => { }}
                       renderer={props => <div className={`timer`}>{props.seconds}</div>}
@@ -163,15 +166,15 @@ class Question extends React.Component {
                   <div className='card'>
                     <div className={`card-question ${this.state.toggleQuestion}`}>
                       <CardText className='card-text'>{e.content}</CardText>
-                      <input
+                      {/* legacy code: <input
                         placeholder='Input your answer'
                         type='number'
                         name='userAnswer'
                         value={this.state.userAnswer}
                         onChange={this.handleChange}
                       >
-                      </input>
-                      {/* <NumberFormat
+                      </input> */}
+                      <NumberFormat
                         placeholder='Input your answer'
                         thousandSeparator={true}
                         value={this.state.userAnswer}
@@ -180,13 +183,14 @@ class Question extends React.Component {
                           this.setState({ userAnswer: values.floatValue })
                         }}
                         type='text'
-                      /> */}
+                      />
 
                     </div>
 
                     <div className={`card-answer ${this.state.toggleAnswer}`}>
                       <CardText className='card-text'>{e.content}</CardText>
-                      <h2>{e.answer}</h2>
+                      <h2><NumberFormat value={e.answer} displayType={'text'} thousandSeparator={true} /></h2>
+
                     </div>
 
                     <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'column' }}>
