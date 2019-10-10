@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { Button, Card, CardText, CardTitle } from 'reactstrap';
+import NumberFormat from 'react-number-format';
 
 import { getQuestion } from './../actions';
 
@@ -170,6 +171,17 @@ class Question extends React.Component {
                         onChange={this.handleChange}
                       >
                       </input>
+                      {/* <NumberFormat
+                        placeholder='Input your answer'
+                        thousandSeparator={true}
+                        value={this.state.userAnswer}
+                        onValueChange={(values) => {
+                          console.log('hello', this.userAnswer)
+                          this.setState({ userAnswer: values.floatValue })
+                        }}
+                        type='text'
+                      /> */}
+
                     </div>
 
                     <div className={`card-answer ${this.state.toggleAnswer}`}>
