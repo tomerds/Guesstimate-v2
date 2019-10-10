@@ -8,6 +8,7 @@ import HomePage from './components/HomePage';
 import Multiplayer from './components/Multiplayer';
 import Navbar from './components/Navbar';
 import Question from './components/Questions';
+import About from './components/About';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/single-player' render={props => (<Question {...props} />)} />
         <Route path='/multi-player' render={props => (<Multiplayer {...props} />)} />
         <Route path='/add-question' render={props => (<AddQuestion {...props} />)} />
+        <Route path='/about' render={props => (<About {...props} />)} />
       </div>
 
     </div>
