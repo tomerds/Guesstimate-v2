@@ -12,7 +12,7 @@ class Answer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='card-container'>
         <CardTitle className='title'>{this.props.title}</CardTitle>
         <div className='card'>
           <CardText className='card-text'>{this.props.content}</CardText>
